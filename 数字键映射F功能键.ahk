@@ -19,31 +19,29 @@ Loop, Parse, conf, "`,"
 conf_size := Round(StrLen(conf)*0.5)
 Loop %conf_size%
 {
-	_hotkey :="$" . htk[A_Index] 
+	_hotkey :="$" . htk[A_Index] ;覆盖原按键功能
 	Hotkey, %_hotkey%, Handle
 }
 return
 
-
-
 Handle:
-	test:=StrSplit(A_thishotkey,"$" )
+	test:=StrSplit(A_thishotkey,"$" ) 
 	Handle(idx[test[2]], edit_mode)  ;根据热键来激活不同位置的窗口 
 return
 
-Handle(t,edit_mode)
+Handle(num, edit_mode)
 {
 	if (edit_mode = 0)
 	{
-		if (t = 0)
-			t := 10
-		send {F%t%}
-		;msgbox send F%t%
+		if (num = 0)
+			num := 10
+		send {F%num%}
+		;msgbox send F%num%
 	}
 	else 
 	{
-		sendinput %t%
-		;msgbox send %t%
+		sendinput %num%
+		;msgbox send %num%
 	}
 }
 
