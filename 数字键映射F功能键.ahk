@@ -77,3 +77,5 @@ $=::
 		send {=}
 	}
 return
+
+#a::Suspend
