@@ -1,118 +1,65 @@
 
-edit_mode := 1
-~LButton::
-	
-	if (A_Cursor = "IBeam" )
+edit_mode := 0
+
+conf=
+(LTrim Join
+1,2,3,4,
+5,6,7,8,
+9
+)
+
+htk:=StrSplit(conf,"`,")
+idx := {} ;根据热键内容获取索引位置
+
+Loop, Parse, conf, "`,"
+{
+	idx[A_LoopField] := A_Index
+}
+
+conf_size := Round(StrLen(conf)*0.5)
+Loop %conf_size%
+{
+	_hotkey :="$" . htk[A_Index] 
+	Hotkey, %_hotkey%, Handle
+}
+return
+
+
+
+Handle:
+	test:=StrSplit(A_thishotkey,"$" )
+	Handle(idx[test[2]], edit_mode)  ;根据热键来激活不同位置的窗口 
+return
+
+Handle(t,edit_mode)
+{
+	if (edit_mode = 0)
 	{
-		edit_mode := 0
+		if (t = 0)
+			t := 10
+		send {F%t%}
+		;msgbox send F%t%
 	}
-	else
+	else 
+	{
+		sendinput %t%
+		;msgbox send %t%
+	}
+}
+
+~LButton::
+	if (A_Cursor = "IBeam" )
 	{
 		edit_mode := 1
 	}
-return
-$1::
-	if (edit_mode = 1)
+	else
 	{
-		send {F1}
-	}
-	else 
-	{
-		send 1
+		edit_mode := 0
 	}
 return
-$2::
-	if (edit_mode = 1)
-	{
-		send {F2}
-	}
-	else 
-	{
-		send 2
-	}
-return
-$3::
-	if (edit_mode = 1)
-	{
-		send {F3}
-	}
-	else 
-	{
-		send 3
-	}
-return
-$4::
-	if (edit_mode = 1)
-	{
-		send {F4}
-	}
-	else 
-	{
-		send 4
-	}
-return
-$5::
-	if (edit_mode = 1)
-	{
-		send {F5}
-	}
-	else 
-	{
-		send 5
-	}
-return
-$6::
-	if (edit_mode = 1)
-	{
-		send {F6}
-	}
-	else 
-	{
-		send 6
-	}
-return
-$7::
-	if (edit_mode = 1)
-	{
-		send {F7}
-	}
-	else 
-	{
-		send 7
-	}
-return
-$8::
-	if (edit_mode = 1)
-	{
-		send {F8}
-	}
-	else 
-	{
-		send 8
-	}
-return
-$9::
-	if (edit_mode = 1)
-	{
-		send {F9}
-	}
-	else 
-	{
-		send 9
-	}
-return
-$0::
-	if (edit_mode = 1)
-	{
-		send {F10}
-	}
-	else 
-	{
-		send 0
-	}
-return
+
 $-::
-	if (edit_mode = 1)
+	if (edit_mode = 0)
 	{
 		send {F11}
 	}
@@ -121,8 +68,9 @@ $-::
 		send -
 	}
 return
+
 $=::
-	if (edit_mode = 1)
+	if (edit_mode = 0)
 	{
 		send {F12}
 	}
