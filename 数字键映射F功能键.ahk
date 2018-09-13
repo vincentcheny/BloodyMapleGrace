@@ -1,81 +1,42 @@
 
-edit_mode := 0
-
 conf=
 (LTrim Join
 1,2,3,4,
 5,6,7,8,
-9
+9,0,-,=
 )
 
 htk:=StrSplit(conf,"`,")
-idx := {} ;根据热键内容获取索引位置
+idx := {} 
 
 Loop, Parse, conf, "`,"
 {
-	idx[A_LoopField] := A_Index
+	idx[A_LoopField] := A_Index ;以热键内容为key，以索引位置为value
 }
 
-conf_size := Round(StrLen(conf)*0.5)
+conf_size := Round(StrLen(conf)*0.5) ;去除逗号
 Loop %conf_size%
 {
-	_hotkey :="$" . htk[A_Index] ;覆盖原按键功能
-	Hotkey, %_hotkey%, Handle
+	_hotkey :="$" . htk[A_Index] ;$覆盖原按键功能
+	Hotkey, %_hotkey%, Handle ;创建新热键
 }
 return
 
 Handle:
-	test:=StrSplit(A_thishotkey,"$" ) 
-	Handle(idx[test[2]], edit_mode)  ;根据热键来激活不同位置的窗口 
+	input_key:=StrSplit(A_thishotkey,"$" ) ;提取键入值
+	Handle(idx[input_key[2]],input_key[2]) 
 return
 
-Handle(num, edit_mode)
+Handle(index, key)
 {
-	if (edit_mode = 0)
+	KeyWait, %key%, T0.2
+	if ErrorLevel
 	{
-		if (num = 0)
-			num := 10
-		send {F%num%}
-		;msgbox send F%num%
-	}
-	else 
-	{
-		sendinput %num%
-		;msgbox send %num%
-	}
-}
-
-~LButton::
-	if (A_Cursor = "IBeam" )
-	{
-		edit_mode := 1
+		send {F%index%}
 	}
 	else
 	{
-		edit_mode := 0
+		send %key%
 	}
-return
-
-$-::
-	if (edit_mode = 0)
-	{
-		send {F11}
-	}
-	else 
-	{
-		send -
-	}
-return
-
-$=::
-	if (edit_mode = 0)
-	{
-		send {F12}
-	}
-	else 
-	{
-		send {=}
-	}
-return
-
-#a::Suspend
+}
+#a::Suspend ; Win+A 暂停/启用
