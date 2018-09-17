@@ -29,14 +29,28 @@ return
 
 Handle(index, key)
 {
-	KeyWait, %key%, T0.2
+	;MsgBox %index% %key%
+	;SetTimer, wait, -200
+	KeyWait, %key%, T0.15
 	if ErrorLevel
 	{
 		send {F%index%}
 	}
 	else
 	{
-		send %key%
+		;MsgBox %key%
+		if key = 5
+			send 5
+		else
+			send %key%
 	}
+	;MsgBox 1%ErrorLevel%
 }
+
+wait:
+	;MsgBox 2%ErrorLevel%
+	
+return
+
+
 #a::Suspend ; Win+A 暂停/启用
