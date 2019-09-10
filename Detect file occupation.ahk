@@ -4,7 +4,7 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance force
 
-#IfWinActive 文件正在使用
+#IfWinActive the file is on use
 	#c::
 	{
 		WinGetActiveTitle, title

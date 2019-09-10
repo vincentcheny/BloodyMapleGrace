@@ -18,4 +18,3 @@ CapsLock::
 		send {Backspace}
 	}
 return
-

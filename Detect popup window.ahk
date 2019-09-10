@@ -6,7 +6,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 #Persistent
 checkInterval := 5*60*1000
-SetTimer, AFunction, %checkInterval% ; 定时执行A
+SetTimer, AFunction, %checkInterval% ; execute A in regular time
 return
 
 AFunction:
