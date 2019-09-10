@@ -10,16 +10,16 @@ SetTimer, AFunction, %checkInterval% ; execute A in regular time
 return
 
 AFunction:
-	IfWinExist, ahk_exe chrome.exe ; There is a situation and BFunction is executable
-	{
-		Gosub, BFunction
-	}
+IfWinExist, ahk_exe chrome.exe ; There is a situation and BFunction is executable
+{
+     Gosub, BFunction
+}
 return
 
 BFunction:
-	MsgBox, 4,, You have a situation. Would you like to execute B? (press Yes or No)
-	IfMsgBox Yes
-	    msgbox You execute B.
-	else
-	    MsgBox You refuse to execute B.
+MsgBox, 4,, You have a situation. Would you like to execute B? (press Yes or No)
+IfMsgBox Yes
+msgbox You execute B.
+else
+MsgBox You refuse to execute B.
 return

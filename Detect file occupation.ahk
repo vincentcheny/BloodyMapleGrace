@@ -5,10 +5,10 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #SingleInstance force
 
 #IfWinActive the file is on use
-	#c::
-	{
-		WinGetActiveTitle, title
-		WinGetText, content
-		MsgBox, The title is `n%title%`nThe content is `n%content%
-	}
+#c::
+{
+     WinGetActiveTitle, title
+     WinGetText, content
+     MsgBox, The title is `n%title%`nThe content is `n%content%
+}
 #IfWinActive
