@@ -1,4 +1,4 @@
-﻿#IfWinActive ahk_class WeChatMainWndForPC
+#IfWinActive ahk_class WeChatMainWndForPC
 $^c::
 clipboard =
 Send ^c

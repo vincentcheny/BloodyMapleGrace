@@ -1,4 +1,4 @@
-﻿#Persistent
+#Persistent
 SetTimer, WatchCursor, 1000
 MouseIsOver(WinTitle) {
      MouseGetPos,,, Win
